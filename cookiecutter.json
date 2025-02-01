@@ -5,6 +5,7 @@
     "description": "A short description of the project.",
     "open_source_license": ["MIT", "BSD-3-Clause", "No license file"],
     "rclone_drive": "google",
-    "rclone_path": "[OPTIONAL] your rclone remote folder path",
+    "rclone_raw": "your rclone raw data remote folder path",
+    "rclone_db": "your rclone final database remote folder path",
     "python_interpreter": ["python3", "python"]
 }

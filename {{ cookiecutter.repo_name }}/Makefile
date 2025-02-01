@@ -1,11 +1,12 @@
-.PHONY: clean data lint requirements sync_data copy_data
+.PHONY: clean data lint requirements copy_data push_data
 
 #################################################################################
 # GLOBALS                                                                       #
 #################################################################################
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-REMOTE_PATH = {{ cookiecutter.rclone_path }}
+REMOTE_RAW = {{ cookiecutter.rclone_raw }}
+REMOTE_DB = {{ cookiecutter.rclone_db }}
 REMOTE_DRIVE = {{ cookiecutter.rclone_drive }}
 PROJECT_NAME = {{ cookiecutter.repo_name }}
 PYTHON_INTERPRETER = {{ cookiecutter.python_interpreter }}
@@ -49,12 +50,12 @@ lint:
 	flake8 src
 
 ## Download data files into from remote drive
-copy_data:
-	rclone copyto $(REMOTE_DRIVE):$(REMOTE_PATH) data/raw/
+copy_raw:
+	rclone copyto $(REMOTE_DRIVE):$(REMOTE_RAW) data/raw/
 
 ## Sync data/ files with remote drive
-sync_data:
-	rclone sync data/ $(REMOTE_DRIVE):$(REMOTE_PATH)
+push_data:
+	rclone copyto data/db/ $(REMOTE_DRIVE):$(REMOTE_DB)
 
 
 ## Set up python interpreter environment
